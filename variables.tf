@@ -136,13 +136,19 @@ variable "az_replica" {
 }
 
 variable "username" {
-  description = "Set a username for database. If set to null, a random username will be created"  
-  type = string
-  default = null
+  description = "Set a username for database. If set to null, a random username will be created"
+  type        = string
+  default     = null
 }
 
 variable "password" {
-  description = "Set a password for username. If set to null, a random password will be created"  
-  type = string
-  default = null
+  description = "Set a password for username. If set to null, a random password will be created"
+  type        = string
+  default     = null
+}
+
+variable "enable_backup" {
+  description = "Enable aws backups using the tags define"
+  type        = bool
+  default     = true
 }
