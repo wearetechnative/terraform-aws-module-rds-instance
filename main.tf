@@ -132,7 +132,6 @@ resource "aws_db_instance" "replica" {
     {
       Type          = "RDS",
       BackupEnabled = "${var.enable_backup}",
-      BackupEnabled = locals.backup
   })
 
   lifecycle {
