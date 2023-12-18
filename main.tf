@@ -63,7 +63,6 @@ resource "aws_db_instance" "this" {
     {
       Type          = "RDS",
       BackupEnabled = "${var.enable_backup}",
-      BackupEnabled = locals.backup
   })
 
   lifecycle {
