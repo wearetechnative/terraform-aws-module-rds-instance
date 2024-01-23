@@ -17,7 +17,7 @@ resource "aws_db_instance" "this" {
   backup_retention_period  = var.backup_retention_period
   backup_window            = var.backup_window
   delete_automated_backups = true
-  deletion_protection      = false
+  deletion_protection      = var.deletion_protection
 
   apply_immediately  = false
   maintenance_window = "Sun:02:00-Sun:03:00"

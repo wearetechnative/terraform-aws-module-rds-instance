@@ -136,23 +136,28 @@ variable "az_replica" {
 }
 
 variable "username" {
-  description = "Set a username for database. If set to null, a random username will be created"  
-  type = string
-  default = null
+  description = "Set a username for database. If set to null, a random username will be created"
+  type        = string
+  default     = null
 }
 
 variable "password" {
-  description = "Set a password for username. If set to null, a random password will be created"  
-  type = string
-  default = null
+  description = "Set a password for username. If set to null, a random password will be created"
+  type        = string
+  default     = null
 }
 
 variable "backup_window" {
   description = "Add a window in the folling format: 03:00-04:00"
-  default =  "03:00-04:00"
+  default     = "03:00-04:00"
 }
 
 variable "backup_retention_period" {
   description = "number of days to retain backups"
-  default = 35
+  default     = 35
+}
+
+variable "deletion_protection" {
+  description = "protect the instance from deletion"
+  default     = false
 }
