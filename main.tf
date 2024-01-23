@@ -14,8 +14,8 @@ resource "aws_db_instance" "this" {
   allow_major_version_upgrade = false
   auto_minor_version_upgrade  = var.auto_minor_version_upgrade
 
-  backup_retention_period  = 35
-  backup_window            = "03:00-04:00"
+  backup_retention_period  = var.backup_retention_period
+  backup_window            = var.backup_window
   delete_automated_backups = true
   deletion_protection      = false
 

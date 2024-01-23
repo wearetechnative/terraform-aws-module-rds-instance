@@ -146,3 +146,13 @@ variable "password" {
   type = string
   default = null
 }
+
+variable "backup_window" {
+  description = "Add a window in the folling format: 03:00-04:00"
+  default =  "00:00-02:00"
+}
+
+variable "backup_retention_period" {
+  description = "number of days to retain backups"
+  default = 35
+}
