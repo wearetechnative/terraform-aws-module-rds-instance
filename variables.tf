@@ -159,10 +159,12 @@ variable "backup_retention_period" {
 
 variable "enable_aws_backup_tag" {
   description = "To enable aws backup service tag to RDS instance."
+  type        = bool
   default     = null
 }
 
 variable "enable_aws_backup_tag_replica" {
   description = "To enable aws backup service tag to RDS replica instance."
+  type        = bool
   default     = null
 }
