@@ -8,11 +8,11 @@ If you receive:
 
 ╷
 │ Error: Creating CloudWatch Log Group failed: ResourceAlreadyExistsException: The specified log group already exists:  The CloudWatch Log Group '/aws/rds/instance/website-stack-20220819105124303000000001/error' already exists.
-│ 
+│
 │   with module.website_stack.module.website_database.aws_cloudwatch_log_group.log_exports["error"],
 │   on ../../modules/rds_instance/cloudwatch_logs_exports.tf line 1, in resource "aws_cloudwatch_log_group" "log_exports":
 │    1: resource "aws_cloudwatch_log_group" "log_exports" {
-│ 
+│
 ╵
 
 Upon initial creation then import the resource or delete it and rerun the TerraForm module. The reason this happens is because we want to control automically created CloudWatch log groups. This happens in more places in AWS unfortunately.
@@ -54,8 +54,12 @@ Upon initial creation then import the resource or delete it and rerun the TerraF
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Allow minor updates during maintenance window. | `bool` | `true` | no |
 | <a name="input_az"></a> [az](#input\_az) | specify availability zone for instance if preferred | `string` | `null` | no |
 | <a name="input_az_replica"></a> [az\_replica](#input\_az\_replica) | specify availability zone for replica instance if preferred | `string` | `null` | no |
+| <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | number of days to retain backups | `number` | `35` | no |
+| <a name="input_backup_window"></a> [backup\_window](#input\_backup\_window) | Add a window in the folling format: 03:00-04:00 | `string` | `"03:00-04:00"` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Name of the database to create when the DB instance is created. | `string` | `null` | no |
 | <a name="input_db_name_enabled"></a> [db\_name\_enabled](#input\_db\_name\_enabled) | Default DB name to be enabled or not. | `bool` | `false` | no |
+| <a name="input_enable_aws_backup_tag"></a> [enable\_aws\_backup\_tag](#input\_enable\_aws\_backup\_tag) | To enable aws backup service tag to RDS instance. | `bool` | `false` | no |
+| <a name="input_enable_aws_backup_tag_replica"></a> [enable\_aws\_backup\_tag\_replica](#input\_enable\_aws\_backup\_tag\_replica) | To enable aws backup service tag to RDS replica instance. | `bool` | `false` | no |
 | <a name="input_enabled_cloudwatch_logs_exports"></a> [enabled\_cloudwatch\_logs\_exports](#input\_enabled\_cloudwatch\_logs\_exports) | Enabled CloudWatch log exports. | `list(string)` | <pre>[<br>  "audit",<br>  "error",<br>  "general",<br>  "slowquery"<br>]</pre> | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | RDS database engine to use. | `string` | `"mariadb"` | no |
 | <a name="input_engine_family"></a> [engine\_family](#input\_engine\_family) | RDS database parameter group family. | `string` | `"mariadb10.5"` | no |
@@ -80,7 +84,10 @@ Upon initial creation then import the resource or delete it and rerun the TerraF
 | Name | Description |
 |------|-------------|
 | <a name="output_db_dns_address"></a> [db\_dns\_address](#output\_db\_dns\_address) | n/a |
+| <a name="output_db_name"></a> [db\_name](#output\_db\_name) | n/a |
 | <a name="output_db_port"></a> [db\_port](#output\_db\_port) | n/a |
+| <a name="output_domain"></a> [domain](#output\_domain) | n/a |
+| <a name="output_instance_arn"></a> [instance\_arn](#output\_instance\_arn) | n/a |
 | <a name="output_master_db_user_name"></a> [master\_db\_user\_name](#output\_master\_db\_user\_name) | n/a |
 | <a name="output_master_db_user_password"></a> [master\_db\_user\_password](#output\_master\_db\_user\_password) | n/a |
 <!-- END_TF_DOCS -->
