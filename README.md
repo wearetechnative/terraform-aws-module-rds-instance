@@ -58,8 +58,8 @@ Upon initial creation then import the resource or delete it and rerun the TerraF
 | <a name="input_backup_window"></a> [backup\_window](#input\_backup\_window) | Add a window in the folling format: 03:00-04:00 | `string` | `"03:00-04:00"` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Name of the database to create when the DB instance is created. | `string` | `null` | no |
 | <a name="input_db_name_enabled"></a> [db\_name\_enabled](#input\_db\_name\_enabled) | Default DB name to be enabled or not. | `bool` | `false` | no |
-| <a name="input_enable_aws_backup_tag"></a> [enable\_aws\_backup\_tag](#input\_enable\_aws\_backup\_tag) | To enable aws backup service tag to RDS instance. | `bool` | `null` | no |
-| <a name="input_enable_aws_backup_tag_replica"></a> [enable\_aws\_backup\_tag\_replica](#input\_enable\_aws\_backup\_tag\_replica) | To enable aws backup service tag to RDS replica instance. | `bool` | `null` | no |
+| <a name="input_enable_aws_backup_tag"></a> [enable\_aws\_backup\_tag](#input\_enable\_aws\_backup\_tag) | To enable aws backup service tag to RDS instance. | `bool` | `"False"` | no |
+| <a name="input_enable_aws_backup_tag_replica"></a> [enable\_aws\_backup\_tag\_replica](#input\_enable\_aws\_backup\_tag\_replica) | To enable aws backup service tag to RDS replica instance. | `bool` | `"False"` | no |
 | <a name="input_enabled_cloudwatch_logs_exports"></a> [enabled\_cloudwatch\_logs\_exports](#input\_enabled\_cloudwatch\_logs\_exports) | Enabled CloudWatch log exports. | `list(string)` | <pre>[<br>  "audit",<br>  "error",<br>  "general",<br>  "slowquery"<br>]</pre> | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | RDS database engine to use. | `string` | `"mariadb"` | no |
 | <a name="input_engine_family"></a> [engine\_family](#input\_engine\_family) | RDS database parameter group family. | `string` | `"mariadb10.5"` | no |
