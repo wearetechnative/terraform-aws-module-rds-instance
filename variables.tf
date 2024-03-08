@@ -168,3 +168,8 @@ variable "enable_aws_backup_tag_replica" {
   type        = bool
   default     = false
 }
+
+variable "deletion_protection" {
+  description = "protect the instance from deletion"
+  default     = false
+}
