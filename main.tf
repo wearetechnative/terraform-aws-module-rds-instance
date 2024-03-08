@@ -59,8 +59,14 @@ resource "aws_db_instance" "this" {
   # default enable when possible
   iam_database_authentication_enabled = var.engine == "mariadb" && var.engine_major_version == "10.5" ? false : true
 
+  # tags = merge(var.additional_tags,
+  # { Type = "RDS" })
+
   tags = merge(var.additional_tags,
-  { Type = "RDS" })
+    { Type          = "RDS"
+      BackupEnabled = var.enable_aws_backup_tag ? "True" : "False"
+    }
+  )
 
   lifecycle {
     prevent_destroy = true
@@ -126,7 +132,10 @@ resource "aws_db_instance" "replica" {
   iam_database_authentication_enabled = var.engine == "mariadb" && var.engine_major_version == "10.5" ? false : true
 
   tags = merge(var.additional_tags,
-  { Type = "RDS" })
+    { Type          = "RDS"
+      BackupEnabled = var.enable_aws_backup_tag_replica ? "True" : "False"
+    }
+  )
 
   lifecycle {
     prevent_destroy = true
