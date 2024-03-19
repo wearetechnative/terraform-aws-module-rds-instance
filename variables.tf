@@ -61,12 +61,6 @@ variable "enabled_cloudwatch_logs_exports" {
   default     = ["audit", "error", "general", "slowquery"]
 }
 
-variable "db_name_enabled" {
-  description = "Default DB name to be enabled or not."
-  type        = bool
-  default     = false
-}
-
 variable "db_name" {
   description = "Name of the database to create when the DB instance is created."
   type        = string
