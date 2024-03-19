@@ -9,7 +9,7 @@ resource "aws_db_instance" "this" {
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
 
-  db_name = var.db_name_enabled ? var.db_name : null
+  db_name = var.db_name != null ? var.db_name : null
 
   allow_major_version_upgrade = false
   auto_minor_version_upgrade  = var.auto_minor_version_upgrade
