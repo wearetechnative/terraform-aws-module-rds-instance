@@ -99,7 +99,13 @@ resource "aws_db_instance" "replica" {
   storage_type   = var.storage_type
   iops           = var.storage_io1_iops
 
-  max_allocated_storage = var.max_allocated_storage
+
+  max_allocated_storage = coalesce(
+    var.max_allocated_storage != null ? (
+      var.max_allocated_storage != 0 ? var.max_allocated_storage : null
+    ) : null,
+    var.max_allocated_storage
+  )
 
   replicate_source_db = aws_db_instance.this.identifier
 
