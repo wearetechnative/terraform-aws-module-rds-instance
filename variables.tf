@@ -167,3 +167,8 @@ variable "deletion_protection" {
   description = "protect the instance from deletion"
   default     = false
 }
+
+variable "maintenance_window" {
+  description = "maintenance window for rds instance updates"
+  default = "Sun:02:00-Sun:03:00"
+}

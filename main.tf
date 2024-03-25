@@ -20,7 +20,7 @@ resource "aws_db_instance" "this" {
   deletion_protection      = var.deletion_protection
 
   apply_immediately  = false
-  maintenance_window = "Sun:02:00-Sun:03:00"
+  maintenance_window = var.maintenance_window
 
   db_subnet_group_name            = aws_db_subnet_group.this.name
   availability_zone               = var.az
