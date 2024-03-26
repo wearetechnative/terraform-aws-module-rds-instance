@@ -17,7 +17,33 @@ If you receive:
 
 Upon initial creation then import the resource or delete it and rerun the TerraForm module. The reason this happens is because we want to control automically created CloudWatch log groups. This happens in more places in AWS unfortunately.
 
+## max_allocated_storage
+This Terraform command uses the coalesce function, which is commonly used to set default values or to check values for null or zero.
+```
+max_allocated_storage = coalesce(
+    var.max_allocated_storage != null ? (
+      var.max_allocated_storage != 0 ? var.max_allocated_storage : null
+    ) : null,
+    var.max_allocated_storage
+)
+```
+Explanation:
+
+- coalesce is a Terraform function that selects one of the given values, starting from left to right, and returns the first non-null value. If all values are null, it returns null.
+
+- var.max_allocated_storage != null ? ... : null checks if the variable max_allocated_storage is not null. If it's not null, it proceeds to check if it's not equal to 0. If it's not null and not equal to 0, it uses the value of max_allocated_storage. Otherwise, it returns null.
+
+- If var.max_allocated_storage != null ? ... : null returns null (because var.max_allocated_storage is null), then the default value of null is re-evaluated in the coalesce function, and then the value of var.max_allocated_storage is used.
+
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=4.8.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >=3.1.2 |
+
 ## Providers
 
 | Name | Version |
@@ -67,6 +93,7 @@ Upon initial creation then import the resource or delete it and rerun the TerraF
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | RDS database engine version to use. | `string` | `"10.5.12"` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | Instance class to be used for database instance. | `string` | `"db.t3.medium"` | no |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | KMS key to use for encrypting RDS instances. | `string` | n/a | yes |
+| <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | maintenance window for rds instance updates | `string` | `"Sun:02:00-Sun:03:00"` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | Set the maximum storage to be used by RDS. | `number` | `20` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Use 2 AZs for high availability. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Unique name for RDS instance. | `string` | n/a | yes |
