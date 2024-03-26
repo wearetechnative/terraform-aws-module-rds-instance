@@ -7,7 +7,15 @@ resource "aws_db_instance" "this" {
   iops           = var.storage_io1_iops
 
   allocated_storage     = var.allocated_storage
-  max_allocated_storage = var.max_allocated_storage
+  # If variable max_allocated_storage = 0; the parameter is being disabled; this option is neede if you want to change a running instance type
+  # If variable max_allocated_storage has value; the value is being used;
+  # If variable max_allocated_storage is not defined, the default value from variables.tf is being used
+  max_allocated_storage = coalesce(
+    var.max_allocated_storage != null ? (
+      var.max_allocated_storage != 0 ? var.max_allocated_storage : null
+    ) : null,
+    var.max_allocated_storage
+  )
 
   db_name = var.db_name != null ? var.db_name : null
 
@@ -100,6 +108,9 @@ resource "aws_db_instance" "replica" {
   iops           = var.storage_io1_iops
 
 
+  # If variable max_allocated_storage = 0; the parameter is being disabled; this option is neede if you want to change a running instance type
+  # If variable max_allocated_storage has value; the value is being used;
+  # If variable max_allocated_storage is not defined, the default value from variables.tf is being used
   max_allocated_storage = coalesce(
     var.max_allocated_storage != null ? (
       var.max_allocated_storage != 0 ? var.max_allocated_storage : null
