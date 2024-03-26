@@ -7,7 +7,15 @@ resource "aws_db_instance" "this" {
   iops           = var.storage_io1_iops
 
   allocated_storage     = var.allocated_storage
-  max_allocated_storage = var.max_allocated_storage
+  # If variable max_allocated_storage = 0; the parameter is being disabled; this option is neede if you want to change a running instance type
+  # If variable max_allocated_storage has value; the value is being used;
+  # If variable max_allocated_storage is not defined, the default value from variables.tf is being used
+  max_allocated_storage = coalesce(
+    var.max_allocated_storage != null ? (
+      var.max_allocated_storage != 0 ? var.max_allocated_storage : null
+    ) : null,
+    var.max_allocated_storage
+  )
 
   db_name = var.db_name != null ? var.db_name : null
 
@@ -20,7 +28,7 @@ resource "aws_db_instance" "this" {
   deletion_protection      = var.deletion_protection
 
   apply_immediately  = false
-  maintenance_window = "Sun:02:00-Sun:03:00"
+  maintenance_window = var.maintenance_window
 
   db_subnet_group_name            = aws_db_subnet_group.this.name
   availability_zone               = var.az
@@ -99,7 +107,16 @@ resource "aws_db_instance" "replica" {
   storage_type   = var.storage_type
   iops           = var.storage_io1_iops
 
-  max_allocated_storage = var.max_allocated_storage
+
+  # If variable max_allocated_storage = 0; the parameter is being disabled; this option is neede if you want to change a running instance type
+  # If variable max_allocated_storage has value; the value is being used;
+  # If variable max_allocated_storage is not defined, the default value from variables.tf is being used
+  max_allocated_storage = coalesce(
+    var.max_allocated_storage != null ? (
+      var.max_allocated_storage != 0 ? var.max_allocated_storage : null
+    ) : null,
+    var.max_allocated_storage
+  )
 
   replicate_source_db = aws_db_instance.this.identifier
 
