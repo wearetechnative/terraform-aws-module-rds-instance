@@ -177,9 +177,3 @@ variable "performance_insights_enabled" {
   description = "performance insights"
   default     = false
 }
-
-# variable "performance_insights_retention_period" {
-#   description = "performance insights"
-#   type        = number
-#   default     = 7
-# }
