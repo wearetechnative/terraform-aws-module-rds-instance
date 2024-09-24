@@ -53,10 +53,11 @@ resource "aws_db_instance" "this" {
   password = var.password != null ? var.password : random_password.password.result
 
   # performance insights not available on some circumstances
-  #performance_insights_enabled          = var.performance_insights_enabled != null ? var.performance_insights_enabled : local.performance_insights_available
-  # performance_insights_enabled          = local.performance_insights_available  
-  # performance_insights_kms_key_id       = local.performance_insights_available ? var.kms_key_arn : null
-  # performance_insights_retention_period = local.performance_insights_available ? 731 : null # either 731 (2 years) or 7 days...
+ //count = var.performance_insights_enabled ? 1 : 0
+  performance_insights_enabled = var.performance_insights_enabled != null ? var.performance_insights_enabled : local.performance_insights_available ? 1 : 0
+  //performance_insights_enabled          = local.performance_insights_available
+  performance_insights_kms_key_id       = local.performance_insights_available ? var.kms_key_arn : null ? 1 : 0
+  performance_insights_retention_period = local.performance_insights_available ? 731 : null ? 0 : 1 # either 731 (2 years) or 7 days... 
 
   # keep default
   # port =
