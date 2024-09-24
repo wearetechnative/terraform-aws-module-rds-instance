@@ -134,7 +134,7 @@ resource "aws_db_instance" "replica" {
 
 
   # performance insights not available on some circumstances
-  performance_insights_enabled          = local.performance_insights_available
+  performance_insights_enabled          = var.performance_insights_enabled != null ? var.performance_insights_enabled : local.performance_insights_available 
   performance_insights_kms_key_id       = local.performance_insights_available ? var.kms_key_arn : null
   performance_insights_retention_period = local.performance_insights_available ? 731 : null # either 731 (2 years) or 7 days...
 
