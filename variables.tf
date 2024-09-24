@@ -175,11 +175,11 @@ variable "maintenance_window" {
 
 variable "performance_insights_enabled" {
   description = "performance insights"
-  default     = ""
+  default     = false
 }
 
-variable "performance_insights_retention_period" {
-  description = "performance insights"
-  type        = number
-  default     = 7
-}
+# variable "performance_insights_retention_period" {
+#   description = "performance insights"
+#   type        = number
+#   default     = 7
+# }
