@@ -178,3 +178,7 @@ variable "performance_insights_enabled" {
   default     = ""
 }
 
+variable "performance_insights_retention_period" {
+  description = "performance insights"
+  default     = ""
+}
