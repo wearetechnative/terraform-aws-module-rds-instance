@@ -27,7 +27,7 @@ resource "aws_db_instance" "this" {
   delete_automated_backups = true
   deletion_protection      = var.deletion_protection
 
-  apply_immediately  = true
+  apply_immediately  = false
   maintenance_window = var.maintenance_window
 
   db_subnet_group_name            = aws_db_subnet_group.this.name
