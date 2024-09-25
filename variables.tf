@@ -170,5 +170,10 @@ variable "deletion_protection" {
 
 variable "maintenance_window" {
   description = "maintenance window for rds instance updates"
-  default = "Sun:02:00-Sun:03:00"
+  default     = "Sun:02:00-Sun:03:00"
+}
+
+variable "performance_insights_enabled" {
+  description = "performance insights"
+  default     = false
 }
