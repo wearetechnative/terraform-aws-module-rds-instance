@@ -27,7 +27,7 @@ resource "aws_db_instance" "this" {
   delete_automated_backups = true
   deletion_protection      = var.deletion_protection
 
-  apply_immediately  = false
+  apply_immediately  = true
   maintenance_window = var.maintenance_window
 
   db_subnet_group_name            = aws_db_subnet_group.this.name
@@ -137,8 +137,8 @@ resource "aws_db_instance" "replica" {
   # performance insights not available on some circumstances
   //performance_insights_enabled = var.performance_insights_enabled != null ? var.performance_insights_enabled : local.performance_insights_available
   performance_insights_enabled = var.performance_insights_enabled
-  performance_insights_kms_key_id = var.kms_key_arn
-  performance_insights_retention_period = var.performance_insights_enabled == "true" ? 731 : null
+  performance_insights_kms_key_id = var.performance_insights_enabled == "true" ? var.kms_key_arn : null
+  performance_insights_retention_period = var.performance_insights_enabled == "true" ? 731 : null # either 731 (2 years) or 7 days...
 
   # keep default
   # port =
