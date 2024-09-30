@@ -176,4 +176,11 @@ variable "maintenance_window" {
 variable "performance_insights_enabled" {
   description = "performance insights"
   default     = false
+  type        = bool
+}
+
+variable "performance_insights_retion_period" {
+  description = "Retention period of performance insights data"
+  default     = 31
+  type        = number
 }

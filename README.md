@@ -36,14 +36,6 @@ Explanation:
 - If var.max_allocated_storage != null ? ... : null returns null (because var.max_allocated_storage is null), then the default value of null is re-evaluated in the coalesce function, and then the value of var.max_allocated_storage is used.
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=4.8.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >=3.1.2 |
-
 ## Providers
 
 | Name | Version |
@@ -99,6 +91,8 @@ Explanation:
 | <a name="input_name"></a> [name](#input\_name) | Unique name for RDS instance. | `string` | n/a | yes |
 | <a name="input_parameter_group_overrides"></a> [parameter\_group\_overrides](#input\_parameter\_group\_overrides) | Optional map of user defined parameters. The map key is the parameter name. The map contains value and apply\_method as attributes. | <pre>map(object({<br>    value        = string<br>    apply_method = string<br>  }))</pre> | `{}` | no |
 | <a name="input_password"></a> [password](#input\_password) | Set a password for username. If set to null, a random password will be created | `string` | `null` | no |
+| <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | performance insights | `bool` | `false` | no |
+| <a name="input_performance_insights_retion_period"></a> [performance\_insights\_retion\_period](#input\_performance\_insights\_retion\_period) | Retention period of performance insights data | `number` | `31` | no |
 | <a name="input_replica"></a> [replica](#input\_replica) | create a read replica or not | `bool` | `false` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Provide at least one security group to be associated with this instance. | `list(string)` | n/a | yes |
 | <a name="input_storage_io1_iops"></a> [storage\_io1\_iops](#input\_storage\_io1\_iops) | Overrides storage\_type to io1 if set and defines the provisioned iops required. | `number` | `null` | no |
