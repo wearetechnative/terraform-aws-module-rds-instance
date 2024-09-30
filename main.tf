@@ -6,7 +6,7 @@ resource "aws_db_instance" "this" {
   storage_type   = var.storage_type
   iops           = var.storage_io1_iops
 
-  allocated_storage     = var.allocated_storage
+  allocated_storage = var.allocated_storage
   # If variable max_allocated_storage = 0; the parameter is being disabled; this option is neede if you want to change a running instance type
   # If variable max_allocated_storage has value; the value is being used;
   # If variable max_allocated_storage is not defined, the default value from variables.tf is being used
@@ -53,9 +53,9 @@ resource "aws_db_instance" "this" {
   password = var.password != null ? var.password : random_password.password.result
 
   # performance insights not available on some circumstances
-  performance_insights_enabled          = local.performance_insights_available
-  performance_insights_kms_key_id       = local.performance_insights_available ? var.kms_key_arn : null
-  performance_insights_retention_period = local.performance_insights_available ? 731 : null # either 731 (2 years) or 7 days...
+  performance_insights_enabled          = var.performance_insights_enabled == true ? "enabled" : null
+  performance_insights_kms_key_id       = var.performance_insights_enabled == true ? var.kms_key_arn : null
+  performance_insights_retention_period = var.performance_insights_enabled == true ? var.performance_insights_retion_period : null # either 731 (2 years) or 7 days...
 
   # keep default
   # port =
@@ -134,9 +134,9 @@ resource "aws_db_instance" "replica" {
 
 
   # performance insights not available on some circumstances
-  performance_insights_enabled          = local.performance_insights_available
-  performance_insights_kms_key_id       = local.performance_insights_available ? var.kms_key_arn : null
-  performance_insights_retention_period = local.performance_insights_available ? 731 : null # either 731 (2 years) or 7 days...
+  performance_insights_enabled          = var.performance_insights_enabled
+  performance_insights_kms_key_id       = var.performance_insights_enabled == "true" ? var.kms_key_arn : null
+  performance_insights_retention_period = var.performance_insights_enabled == "true" ? 731 : null # either 731 (2 years) or 7 days...
 
   # keep default
   # port =
