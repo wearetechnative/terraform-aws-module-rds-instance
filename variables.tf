@@ -179,7 +179,7 @@ variable "performance_insights_enabled" {
   type        = bool
 }
 
-variable "performance_insights_retion_period" {
+variable "performance_insights_retention_period" {
   description = "Retention period of performance insights data"
   default     = 31
   type        = number
