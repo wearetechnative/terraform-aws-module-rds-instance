@@ -173,7 +173,7 @@ variable "maintenance_window" {
   default = "Sun:02:00-Sun:03:00"
 }
 
-variable "var.performance_insights_enabled" {
+variable "performance_insights_enabled" {
   description = "performance insights"
   default     = ""
 }
