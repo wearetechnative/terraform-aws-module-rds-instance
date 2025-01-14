@@ -1,5 +1,5 @@
 module "iam_role" {
-  source = "git@github.com:wearetechnative/terraform-aws-iam-role.git?ref=v1.0.0"
+  source = "github.com/wearetechnative/terraform-aws-iam-role.git?ref=9229bbd0280807cbc49f194ff6d2741265dc108a"
 
   role_name = "rds-${var.name}-cloudwatch"
   role_path = "/rds/"
