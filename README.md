@@ -1,6 +1,6 @@
 [![](we-are-technative.png)](https://www.technative.nl)
 
-# Terraform AWS [terraform-aws-module-rds-instance] ![](https://img.shields.io/github/workflow/status/wearetechnative/terraform-aws-module-rds-instance/tflint.yaml?style=plastic)
+# Terraform AWS [terraform-aws-module-rds-instance] ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-module-rds-instance/tflint.yaml?style=plastic)
 
 # rds_instance
 
