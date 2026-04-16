@@ -25,3 +25,8 @@ output "db_name" {
 output "domain" {
   value = aws_db_instance.this.domain
 }
+
+output "resource_id" {
+  value = aws_db_instance.this.resource_id
+}
+
