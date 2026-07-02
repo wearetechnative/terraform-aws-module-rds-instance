@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_log_group" "log_exports" {
   for_each = { for value in var.enabled_cloudwatch_logs_exports : value => value }
-  name     = "/aws/rds/instance/${aws_db_instance.this.identifier}/${each.key}"
+  name     = "/aws/rds/instance/${var.name}-master/${each.key}"
 
   retention_in_days = 60
   kms_key_id        = var.kms_key_arn
