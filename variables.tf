@@ -143,11 +143,13 @@ variable "password" {
 
 variable "backup_window" {
   description = "Add a window in the folling format: 03:00-04:00"
+  type        = string
   default     = "03:00-04:00"
 }
 
 variable "backup_retention_period" {
   description = "number of days to retain backups"
+  type        = number
   default     = 35
 }
 
@@ -165,11 +167,13 @@ variable "enable_aws_backup_tag_replica" {
 
 variable "deletion_protection" {
   description = "protect the instance from deletion"
+  type        = bool
   default     = false
 }
 
 variable "maintenance_window" {
   description = "maintenance window for rds instance updates"
+  type        = string
   default     = "Sun:02:00-Sun:03:00"
 }
 
