@@ -3,6 +3,12 @@ variable "name" {
   type        = string
 }
 
+variable "identifier" {
+  description = "Optional complete RDS DB instance identifier. Defaults to <name>-master."
+  type        = string
+  default     = null
+}
+
 variable "subnet_ids" {
   description = "Required list of subnets to launch instances in."
   type        = list(string)
@@ -49,6 +55,12 @@ variable "max_allocated_storage" {
   default     = 20 # initial default for allocated_storage
 }
 
+variable "port" {
+  description = "Port on which the database accepts connections. Uses the engine default when null."
+  type        = number
+  default     = null
+}
+
 variable "auto_minor_version_upgrade" {
   description = "Allow minor updates during maintenance window."
   type        = bool
@@ -56,13 +68,19 @@ variable "auto_minor_version_upgrade" {
 }
 
 variable "enabled_cloudwatch_logs_exports" {
-  description = "Enabled CloudWatch log exports."
+  description = "Enabled CloudWatch log exports. Defaults to the existing MariaDB/MySQL exports for those engines and no exports for other engines."
   type        = list(string)
-  default     = ["audit", "error", "general", "slowquery"]
+  default     = null
 }
 
 variable "db_name" {
   description = "Name of the database to create when the DB instance is created."
+  type        = string
+  default     = null
+}
+
+variable "snapshot_identifier" {
+  description = "DB snapshot identifier or ARN to restore. When set, the database name, master credentials, character sets, and KMS key are inherited from the snapshot."
   type        = string
   default     = null
 }
@@ -91,6 +109,53 @@ variable "engine_family" {
   default     = "mariadb10.5"
 }
 
+variable "license_model" {
+  description = "RDS license model, for example license-included or bring-your-own-license."
+  type        = string
+  default     = null
+}
+
+variable "character_set_name" {
+  description = "Database character set. This can only be set when the DB instance is created."
+  type        = string
+  default     = null
+}
+
+variable "nchar_character_set_name" {
+  description = "National character set for Oracle DB instances. This can only be set when the DB instance is created."
+  type        = string
+  default     = null
+}
+
+variable "ca_cert_identifier" {
+  description = "Identifier of the CA certificate for the DB instance."
+  type        = string
+  default     = null
+}
+
+variable "iam_database_authentication_enabled" {
+  description = "Enable IAM database authentication. Defaults to enabled for supported engines and disabled otherwise."
+  type        = bool
+  default     = null
+}
+
+variable "option_group_options" {
+  description = "Options to include in the RDS option group."
+  type = map(object({
+    port                           = optional(number)
+    version                        = optional(string)
+    vpc_security_group_memberships = optional(list(string), [])
+    settings                       = optional(map(string), {})
+  }))
+  default = {}
+}
+
+variable "db_instance_roles" {
+  description = "Map of RDS feature names to IAM role ARNs to associate with the DB instance."
+  type        = map(string)
+  default     = {}
+}
+
 variable "parameter_group_overrides" {
   description = "Optional map of user defined parameters. The map key is the parameter name. The map contains value and apply_method as attributes."
   type = map(object({
@@ -102,6 +167,11 @@ variable "parameter_group_overrides" {
 
 variable "kms_key_arn" {
   description = "KMS key to use for encrypting RDS instances."
+  type        = string
+}
+
+variable "log_kms_key_arn" {
+  description = "KMS key to use for encrypting RDS logs in cloudwatch."
   type        = string
 }
 
@@ -171,6 +241,12 @@ variable "deletion_protection" {
   default     = false
 }
 
+variable "copy_tags_to_snapshot" {
+  description = "Copy DB instance tags to snapshots."
+  type        = bool
+  default     = false
+}
+
 variable "maintenance_window" {
   description = "maintenance window for rds instance updates"
   type        = string
@@ -187,4 +263,15 @@ variable "performance_insights_retention_period" {
   description = "Retention period of performance insights data"
   default     = 31
   type        = number
+}
+
+variable "monitoring_interval" {
+  description = "Enhanced Monitoring interval in seconds. Set to 0 to disable Enhanced Monitoring."
+  type        = number
+  default     = 60
+
+  validation {
+    condition     = contains([0, 1, 5, 10, 15, 30, 60], var.monitoring_interval)
+    error_message = "monitoring_interval must be one of 0, 1, 5, 10, 15, 30, or 60."
+  }
 }
