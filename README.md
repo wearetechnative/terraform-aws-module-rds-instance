@@ -111,6 +111,7 @@ Set `max_allocated_storage` to `0` or `null` to disable storage autoscaling.
 | <a name="input_port"></a> [port](#input\_port) | Port on which the database accepts connections. Uses the engine default when null. | `number` | `null` | no |
 | <a name="input_replica"></a> [replica](#input\_replica) | create a read replica or not | `bool` | `false` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Provide at least one security group to be associated with this instance. | `list(string)` | n/a | yes |
+| <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | DB snapshot identifier or ARN to restore. When set, the database name, master credentials, character sets, and storage encryption settings are inherited from the snapshot. | `string` | `null` | no |
 | <a name="input_storage_io1_iops"></a> [storage\_io1\_iops](#input\_storage\_io1\_iops) | Overrides storage\_type to io1 if set and defines the provisioned iops required. | `number` | `null` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | Storage type to be used for instances. | `string` | `"gp2"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Required list of subnets to launch instances in. | `list(string)` | n/a | yes |

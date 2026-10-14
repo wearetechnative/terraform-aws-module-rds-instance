@@ -16,11 +16,19 @@ variable "s3_integration_role_arn" {
   type        = string
 }
 
+variable "snapshot_identifier" {
+  description = "Optional Oracle DB snapshot identifier or ARN to restore."
+  type        = string
+  default     = null
+}
+
 module "oracle" {
   source = "../.."
 
   name       = "example-oracle"
   identifier = "example-oracle"
+
+  snapshot_identifier = var.snapshot_identifier
 
   subnet_ids         = var.subnet_ids
   security_group_ids = var.security_group_ids

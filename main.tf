@@ -1,5 +1,7 @@
 resource "aws_db_instance" "this" {
-  identifier = local.db_identifier
+  identifier          = local.db_identifier
+  # Leave snapshot id empty (null) to create new database instaed of snapshot restore
+  snapshot_identifier = var.snapshot_identifier
 
   instance_class = var.instance_class
   multi_az       = var.multi_az
@@ -12,10 +14,10 @@ resource "aws_db_instance" "this" {
   # If variable max_allocated_storage is not defined, the default value from variables.tf is being used
   max_allocated_storage = var.max_allocated_storage == 0 ? null : var.max_allocated_storage
 
-  db_name                  = var.db_name
+  db_name                  = var.snapshot_identifier == null ? var.db_name : null
   port                     = var.port
-  character_set_name       = var.character_set_name
-  nchar_character_set_name = var.nchar_character_set_name
+  character_set_name       = var.snapshot_identifier == null ? var.character_set_name : null
+  nchar_character_set_name = var.snapshot_identifier == null ? var.nchar_character_set_name : null
 
   allow_major_version_upgrade = false
   auto_minor_version_upgrade  = var.auto_minor_version_upgrade
@@ -43,15 +45,16 @@ resource "aws_db_instance" "this" {
   skip_final_snapshot       = false
   final_snapshot_identifier = "${var.name}-finalsnapshot"
 
-  storage_encrypted  = var.kms_key_arn != null ? true : false
-  kms_key_id         = var.kms_key_arn
+  # No encryption when no key is given
+  storage_encrypted  = var.snapshot_identifier == null ? var.kms_key_arn != null : null
+  kms_key_id         = var.snapshot_identifier == null ? var.kms_key_arn : null
   ca_cert_identifier = var.ca_cert_identifier
 
   option_group_name    = aws_db_option_group.this.name
   parameter_group_name = aws_db_parameter_group.this.id
 
-  username = var.username != null ? var.username : "admin_${random_password.login_suffix.result}"
-  password = var.password != null ? var.password : random_password.password.result
+  username = var.snapshot_identifier == null ? (var.username != null ? var.username : "admin_${random_password.login_suffix.result}") : null
+  password = var.snapshot_identifier == null ? (var.password != null ? var.password : random_password.password.result) : null
 
   # performance insights not available on some circumstances
   performance_insights_enabled          = var.performance_insights_enabled
