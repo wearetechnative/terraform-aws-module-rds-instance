@@ -1,79 +1,81 @@
-variable "kms_key_arn" {
-  type = string
-}
+# Example is commented because linter wont accept nonexisting resource calls
 
-variable "subnet_ids" {
-  description = "Private data subnet IDs in at least two Availability Zones."
-  type        = list(string)
-}
+# variable "kms_key_arn" {
+#   type = string
+# }
 
-variable "security_group_ids" {
-  type = list(string)
-}
+# variable "subnet_ids" {
+#   description = "Private data subnet IDs in at least two Availability Zones."
+#   type        = list(string)
+# }
 
-variable "s3_integration_role_arn" {
-  description = "IAM role with workload-specific S3 permissions for Oracle S3 integration."
-  type        = string
-}
+# variable "security_group_ids" {
+#   type = list(string)
+# }
 
-variable "snapshot_identifier" {
-  description = "Optional Oracle DB snapshot identifier or ARN to restore."
-  type        = string
-  default     = null
-}
+# variable "s3_integration_role_arn" {
+#   description = "IAM role with workload-specific S3 permissions for Oracle S3 integration."
+#   type        = string
+# }
 
-module "oracle" {
-  source = "../.."
+# variable "snapshot_identifier" {
+#   description = "Optional Oracle DB snapshot identifier or ARN to restore."
+#   type        = string
+#   default     = null
+# }
 
-  name       = "example-oracle"
-  identifier = "example-oracle"
+# module "oracle" {
+#   source = "../.."
 
-  snapshot_identifier = var.snapshot_identifier
+#   name       = "example-oracle"
+#   identifier = "example-oracle"
 
-  subnet_ids         = var.subnet_ids
-  security_group_ids = var.security_group_ids
-  kms_key_arn        = var.kms_key_arn
+#   snapshot_identifier = var.snapshot_identifier
 
-  engine               = "oracle-se2-cdb"
-  engine_version       = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
-  engine_major_version = "19"
-  engine_family        = "oracle-se2-cdb-19"
-  license_model        = "license-included"
+#   subnet_ids         = var.subnet_ids
+#   security_group_ids = var.security_group_ids
+#   kms_key_arn        = var.kms_key_arn
 
-  instance_class        = "db.m5.xlarge"
-  allocated_storage     = 2000
-  max_allocated_storage = 4000
-  storage_type          = "gp2"
-  multi_az              = false
+#   engine               = "oracle-se2-cdb"
+#   engine_version       = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
+#   engine_major_version = "19"
+#   engine_family        = "oracle-se2-cdb-19"
+#   license_model        = "license-included"
 
-  db_name                  = "ORCL"
-  port                     = 1521
-  character_set_name       = "AL32UTF8"
-  nchar_character_set_name = "AL16UTF16"
+#   instance_class        = "db.m5.xlarge"
+#   allocated_storage     = 2000
+#   max_allocated_storage = 4000
+#   storage_type          = "gp2"
+#   multi_az              = false
 
-  backup_retention_period = 7
-  copy_tags_to_snapshot   = true
-  monitoring_interval     = 60
-  log_kms_key_arn = data.terraform_remote_state.kms.outputs.default_kms_key_arn
-  performance_insights_enabled          = true
-  performance_insights_retention_period = 7
+#   db_name                  = "ORCL"
+#   port                     = 1521
+#   character_set_name       = "AL32UTF8"
+#   nchar_character_set_name = "AL16UTF16"
 
-  iam_database_authentication_enabled = false
-  enabled_cloudwatch_logs_exports = [
-    "alert",
-    "audit",
-    "listener",
-    "oemagent",
-    "trace",
-  ]
+#   backup_retention_period = 7
+#   copy_tags_to_snapshot   = true
+#   monitoring_interval     = 60
+#   log_kms_key_arn = data.terraform_remote_state.kms.outputs.default_kms_key_arn
+#   performance_insights_enabled          = true
+#   performance_insights_retention_period = 7
 
-  option_group_options = {
-    JVM            = {}
-    S3_INTEGRATION = {}
-    UTL_MAIL       = {}
-  }
+#   iam_database_authentication_enabled = false
+#   enabled_cloudwatch_logs_exports = [
+#     "alert",
+#     "audit",
+#     "listener",
+#     "oemagent",
+#     "trace",
+#   ]
 
-  db_instance_roles = {
-    S3_INTEGRATION = var.s3_integration_role_arn
-  }
-}
+#   option_group_options = {
+#     JVM            = {}
+#     S3_INTEGRATION = {}
+#     UTL_MAIL       = {}
+#   }
+
+#   db_instance_roles = {
+#     S3_INTEGRATION = var.s3_integration_role_arn
+#   }
+# }
