@@ -1,5 +1,5 @@
 resource "aws_db_instance" "this" {
-  identifier          = local.db_identifier
+  identifier = local.db_identifier
   # Leave snapshot id empty (null) to create new database instaed of snapshot restore
   snapshot_identifier = var.snapshot_identifier
 
@@ -46,7 +46,7 @@ resource "aws_db_instance" "this" {
   final_snapshot_identifier = "${var.name}-finalsnapshot"
 
   # No encryption when no key is given
-  storage_encrypted  = var.snapshot_identifier == null ? var.kms_key_arn != null : null
+  storage_encrypted  = var.kms_key_arn != null
   kms_key_id         = var.snapshot_identifier == null ? var.kms_key_arn : null
   ca_cert_identifier = var.ca_cert_identifier
 

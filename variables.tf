@@ -80,7 +80,7 @@ variable "db_name" {
 }
 
 variable "snapshot_identifier" {
-  description = "DB snapshot identifier or ARN to restore. When set, the database name, master credentials, character sets, and storage encryption settings are inherited from the snapshot."
+  description = "DB snapshot identifier or ARN to restore. When set, the database name, master credentials, character sets, and KMS key are inherited from the snapshot."
   type        = string
   default     = null
 }
