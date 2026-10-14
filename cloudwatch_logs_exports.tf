@@ -3,7 +3,7 @@ resource "aws_cloudwatch_log_group" "log_exports" {
   name     = "/aws/rds/instance/${local.db_identifier}/${each.key}"
 
   retention_in_days = 60
-  kms_key_id        = var.kms_key_arn
+  kms_key_id        = var.log_kms_key_arn
 
   tags = merge(var.additional_tags, {
     Name = "RDS-logs"

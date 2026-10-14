@@ -170,6 +170,11 @@ variable "kms_key_arn" {
   type        = string
 }
 
+variable "log_kms_key_arn" {
+  description = "KMS key to use for encrypting RDS logs in cloudwatch."
+  type        = string
+}
+
 variable "additional_tags" {
   description = "Additional tags to be added to resources."
   type        = map(string)
