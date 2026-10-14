@@ -54,7 +54,7 @@ module "oracle" {
   backup_retention_period = 7
   copy_tags_to_snapshot   = true
   monitoring_interval     = 60
-
+  log_kms_key_arn = data.terraform_remote_state.kms.outputs.default_kms_key_arn
   performance_insights_enabled          = true
   performance_insights_retention_period = 7
 
